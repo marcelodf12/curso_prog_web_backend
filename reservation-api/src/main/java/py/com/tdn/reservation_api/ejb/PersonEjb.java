@@ -23,6 +23,7 @@ public class PersonEjb {
 	public Person save(Person p){
 		Person pAux = findById(p.getId());
 		if(pAux==null){
+			p.setId(persons.size()+1);
 			persons.add(p);
 		}else{
 			pAux.setFirstName(p.getFirstName());
@@ -37,10 +38,11 @@ public class PersonEjb {
 	}
 	
 	public Person findById(Integer id){
-		for(Person p:persons){
-			if(id.compareTo(p.getId())==0)
-				return p;
-		}
+		if(id!=null)
+			for(Person p:persons){
+				if(id.compareTo(p.getId())==0)
+					return p;
+			}
 		return null;
 	}
 	
@@ -48,10 +50,10 @@ public class PersonEjb {
 		return persons;
 	}
 	
-	public void delete(Person p){
+	public void delete(Integer pId){
 		for (Iterator<Person> iter = persons.listIterator(); iter.hasNext(); ) {
 			Person a = iter.next();
-		    if (a.getId().compareTo(p.getId())==0) {
+		    if (a.getId().compareTo(pId)==0) {
 		        iter.remove();
 		    }
 		}

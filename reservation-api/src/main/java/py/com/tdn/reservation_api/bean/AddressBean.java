@@ -1,8 +1,8 @@
-package py.com.tdn.reservation_api.dto;
+package py.com.tdn.reservation_api.bean;
 
 import java.io.Serializable;
 
-public class Address implements Serializable {
+public class AddressBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String city;

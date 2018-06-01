@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import py.com.tdn.reservation_api.dto.Person;
+import py.com.tdn.reservation_api.bean.PersonBean;
 import py.com.tdn.reservation_api.ejb.PersonEjb; 
  
 @Path("/persona")
@@ -23,7 +23,7 @@ public class PersonRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPerson(@PathParam("id") Integer id) { 
     	PersonEjb personEjb = PersonEjb.getIntance();
-        Person p = personEjb.findById(id);
+        PersonBean p = personEjb.findById(id);
         if(p!=null)
         	return Response.status(200).entity(p).build(); 
         return Response.status(404).build();
@@ -33,7 +33,7 @@ public class PersonRest {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllPerson() { 
     	PersonEjb personEjb = PersonEjb.getIntance();
-        List<Person> list = personEjb.listAll();
+        List<PersonBean> list = personEjb.listAll();
         if(list!=null && !list.isEmpty())
         	return Response.status(200).entity(list).build(); 
         return Response.status(204).build();
@@ -41,10 +41,10 @@ public class PersonRest {
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response newPerson(Person p) { 
+    public Response newPerson(PersonBean p) { 
     	PersonEjb personEjb = PersonEjb.getIntance();
     	if(p!=null){
-    		Person pNew = personEjb.save(p);
+    		PersonBean pNew = personEjb.save(p);
     		if(pNew!=null)
     			return Response.status(201).entity(pNew).build();
     		return Response.status(500).build();
@@ -55,11 +55,11 @@ public class PersonRest {
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(@PathParam("id") Integer id, Person p) { 
+    public Response edit(@PathParam("id") Integer id, PersonBean p) { 
     	PersonEjb personEjb = PersonEjb.getIntance();
     	if(p!=null){
     		p.setId(id);
-    		Person pNew = personEjb.save(p);
+    		PersonBean pNew = personEjb.save(p);
     		if(pNew!=null)
     			return Response.status(201).entity(pNew).build();
     		return Response.status(500).build();

@@ -1,10 +1,10 @@
-package py.com.tdn.reservation_api.dto;
+package py.com.tdn.reservation_api.bean;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Person implements Serializable {
+public class PersonBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -14,14 +14,14 @@ public class Person implements Serializable {
     private String email;
     private String idNumber;
     private String nationality;
-    private List<Address> address;
+    private List<AddressBean> address;
     
-	public Person() {
+	public PersonBean() {
 		super();
 	}
 
-	public Person(Integer iD, String firstName, String lastName, Date birthDate, String email, String iDNumber,
-			String nationality, List<Address> address) {
+	public PersonBean(Integer iD, String firstName, String lastName, Date birthDate, String email, String iDNumber,
+			String nationality, List<AddressBean> address) {
 		super();
 		this.id = iD;
 		this.firstName = firstName;
@@ -89,11 +89,11 @@ public class Person implements Serializable {
 		this.nationality = nationality;
 	}
 
-	public List<Address> getAddress() {
+	public List<AddressBean> getAddress() {
 		return address;
 	}
 
-	public void setAddress(List<Address> address) {
+	public void setAddress(List<AddressBean> address) {
 		this.address = address;
 	}
 

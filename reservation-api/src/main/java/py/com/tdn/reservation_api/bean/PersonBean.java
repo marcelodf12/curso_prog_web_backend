@@ -16,11 +16,13 @@ public class PersonBean implements Serializable {
     private String nationality;
     private List<AddressBean> address;
     
+    // Constructor del JavaBean Obligatorio
 	public PersonBean() {
 		super();
 	}
 
-	public PersonBean(Integer iD, String firstName, String lastName, Date birthDate, String email, String iDNumber,
+	// Constructor por campos
+	public PersonBean(Integer iD, String firstName, String lastName, Date birthDate, String email, String idNumber,
 			String nationality, List<AddressBean> address) {
 		super();
 		this.id = iD;
@@ -28,9 +30,22 @@ public class PersonBean implements Serializable {
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.email = email;
-		this.idNumber = iDNumber;
+		this.idNumber = idNumber;
 		this.nationality = nationality;
 		this.address = address;
+	}
+	
+	// Constructor por copia
+	public PersonBean(PersonBean person) {
+		super();
+		this.id = person.id;
+		this.firstName = person.firstName;
+		this.lastName = person.lastName;
+		this.birthDate = person.birthDate;
+		this.email = person.email;
+		this.idNumber = person.idNumber;
+		this.nationality = person.nationality;
+		this.address = person.address;
 	}
 
 	public Integer getId() {

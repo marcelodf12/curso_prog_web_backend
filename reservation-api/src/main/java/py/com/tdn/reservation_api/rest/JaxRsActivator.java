@@ -16,11 +16,7 @@ public class JaxRsActivator extends Application {
     	
     	/* Agregar todas las clases que contengas servicios rest*/
     	resources.add(PersonRest.class);
-    	
-    	
-    	
-    	
-    	
+    	resources.add(ClientRest.class);
     	
     	/* Para genera documentación */
         resources.add(ApiListingResource.class);

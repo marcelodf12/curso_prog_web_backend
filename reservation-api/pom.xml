@@ -15,6 +15,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+   		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- JBoss dependency versions -->
+		<version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 	</properties>
 
 
@@ -39,13 +43,67 @@
 			<version>1.5.0</version>
 		</dependency>
 
-		<!-- Para soporte a EJB, el provided es solo para compilar, el servidor de aplicaciones proporciona el soporte para EJB -->
+		<!-- Para soporte a EJB, el provided es solo para compilar, el servidor 
+			de aplicaciones proporciona el soporte para EJB -->
 		<dependency>
-		    <groupId>org.jboss.spec.javax.ejb</groupId>
-		    <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-		    <version>1.0.0.Final</version>
-		    <scope>provided</scope>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
+			<version>1.0.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.16.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.persistence/persistence-api -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.0-api -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212</version>
+			<scope>provied</scope>
+		</dependency>
+
+
+
 
 	</dependencies>
 
@@ -56,6 +114,13 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+			</plugin>
+			<!-- The WildFly plugin deploys your war to a local WildFly container -->
+			<!-- To use, run: mvn package wildfly:deploy -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>${version.wildfly.maven.plugin}</version>
 			</plugin>
 		</plugins>
 	</build>

@@ -4,21 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import py.com.tdn.reservation_api.bean.PersonBean;
 
+@Stateless
 public class PersonEjb {
 	
-	private static PersonEjb instance = new PersonEjb();
-	
-	private static List<PersonBean> persons;
-	
-	private PersonEjb(){}
-	
-	public static PersonEjb getIntance(){
-		if(persons==null)
-			persons = new ArrayList<>();
-		return instance;
-	}
+	private static List<PersonBean> persons = new ArrayList<>();
 	
 	public PersonBean save(PersonBean p){
 		PersonBean pAux = findById(p.getId());

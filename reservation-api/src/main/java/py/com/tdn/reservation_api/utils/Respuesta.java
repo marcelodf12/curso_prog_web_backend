@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Respuesta<T> implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String tittle;

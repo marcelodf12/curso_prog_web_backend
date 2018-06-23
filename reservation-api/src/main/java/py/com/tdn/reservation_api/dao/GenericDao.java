@@ -31,7 +31,6 @@ public class GenericDao<T, K> {
 	}
 
 	public T findById(Class<T> type, K id) {
-		getClass();
 		return em.find(type, id);
 	}	
 
@@ -49,6 +48,7 @@ public class GenericDao<T, K> {
 				" e WHERE 0 < LOCATE(:filter, TRIM(UPPER(e." + column + "))) " +
 				"ORDER BY "+ orderBy + " " + order;
 		log.debug(qSelect);
+		//SELECT e FROM ClientBean e WHERE 0 < LOCATE("@gmail.com", TRIM(UPPER(e.email))) ORDER BY lastName ASC
 		
 		String qCount = "SELECT count(e) FROM " + type.getSimpleName() + 
 				" e WHERE 0 < LOCATE(:filter, TRIM(UPPER(e." + column + "))) ";
@@ -63,7 +63,7 @@ public class GenericDao<T, K> {
 		Integer totalPage = (int) Math.ceil((double)totalCount/(double)pageSize);
 		
 		int offset = (currentPage - 1) * pageSize;
-		query.setParameter("filter", filter);
+		query.setParameter("filter", filter.toUpperCase().trim());
 		query.setFirstResult(offset);
 		query.setMaxResults(pageSize);
 		

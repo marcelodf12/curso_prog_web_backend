@@ -60,8 +60,8 @@ public class SucursalBean implements Serializable {
 		super();
 		this.idSucursal = sucursal.idSucursal;
 		this.user = sucursal.user;
-		this.lat = sucursal.lat.doubleValue();
-		this.lon = sucursal.lon.doubleValue();
+		this.lat = sucursal.lat;
+		this.lon = sucursal.lon;
 		this.tracks = sucursal.tracks;
 	}
 

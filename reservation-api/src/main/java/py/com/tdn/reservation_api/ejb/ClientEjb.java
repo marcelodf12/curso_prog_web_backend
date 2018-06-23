@@ -54,10 +54,10 @@ public class ClientEjb {
 			else if(lastName!=null) { column ="lastName"; 	filter = lastName; }
 			else if(email!=null) 	{ column ="email"; 		filter = email; }
 			
-			if(	!orderBy.matches("idNumber|firstName|lastName|email") )
+			if(	orderBy==null || !orderBy.matches("idNumber|firstName|lastName|email") )
 				orderBy = "idNumber";
 			
-			if( order.compareTo("ASC")!=0) order = "DESC";
+			if( order==null || order.compareTo("ASC")!=0) order = "DESC";
 			
 			currentPage = currentPage!=null?currentPage:1;
 			pageSize = pageSize!=null?pageSize:10;

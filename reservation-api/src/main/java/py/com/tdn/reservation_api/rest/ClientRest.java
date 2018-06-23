@@ -24,6 +24,7 @@ public class ClientRest {
 	@EJB
 	private ClientEjb clientEjb;
 	
+	
 	private Logger log = Logger.getLogger(this.getClass());
 
     @GET

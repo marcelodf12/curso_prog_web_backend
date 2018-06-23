@@ -15,8 +15,11 @@ public class JaxRsActivator extends Application {
     	final Set<Class<?>> resources = new HashSet<>();
     	
     	/* Agregar todas las clases que contengas servicios rest*/
-    	resources.add(PersonRest.class);
     	resources.add(ClientRest.class);
+    	resources.add(DeliveryRest.class);
+    	resources.add(PaqueteRest.class);
+    	resources.add(SucursalRest.class);
+    	resources.add(UsuarioRest.class);
     	
     	/* Para genera documentación */
         resources.add(ApiListingResource.class);

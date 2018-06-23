@@ -22,4 +22,8 @@ public class Messages {
 	public static final String ERROR = "error";
 	public static final String SUCCESS = "success";
 	public static final String WARN = "warn";
+	public static final String CHANGE_PASS_SUCCESS = "Su contraseña se modificó correctamente";
+	public static final String CHANGE_PASS_ERROR = "Su contraseña no se modificó. Ha ocurrido un error";
+	public static final String DELETE_USER_SUCCESS = "El usuario se eliminó correctamente";
+	public static final String DELETE_USER_ERROR = "Ha ocurrido un error al eliminar el usuario";
 }

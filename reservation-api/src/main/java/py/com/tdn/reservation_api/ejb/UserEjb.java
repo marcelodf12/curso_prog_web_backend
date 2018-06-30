@@ -1,16 +1,19 @@
 package py.com.tdn.reservation_api.ejb;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
 import py.com.tdn.reservation_api.bean.SucursalBean;
 import py.com.tdn.reservation_api.bean.UserBean;
+import py.com.tdn.reservation_api.dao.SucursalDao;
 import py.com.tdn.reservation_api.dao.UserDao;
 import py.com.tdn.reservation_api.dto.ChangePasswordDto;
 import py.com.tdn.reservation_api.utils.Pagination;
 
+@Stateless
 public class UserEjb {
 	
 	@EJB
@@ -51,6 +54,7 @@ public class UserEjb {
 			try {
 				SucursalBean sucursal = sucursalDao.findById(SucursalBean.class, user.getSucursal().getIdSucursal());
 				if(sucursal!=null){
+					user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
 					user.setSucursal(sucursal);
 					return userDao.create(user);
 				}

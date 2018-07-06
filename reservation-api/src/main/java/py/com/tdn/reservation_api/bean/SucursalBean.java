@@ -39,6 +39,8 @@ public class SucursalBean implements Serializable {
 	
 	private Double lon;
 	
+	private String name;
+	
 	@OneToMany(mappedBy="sucursal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<TrackBean> tracks;
@@ -47,13 +49,14 @@ public class SucursalBean implements Serializable {
 		super();
 	}
 
-	public SucursalBean(Integer idSucursal, UserBean user, Double lat, Double lon, List<TrackBean> tracks) {
+	public SucursalBean(Integer idSucursal, UserBean user, String name, Double lat, Double lon, List<TrackBean> tracks) {
 		super();
 		this.idSucursal = idSucursal;
 		this.user = user;
 		this.lat = lat;
 		this.lon = lon;
 		this.tracks = tracks;
+		this.name = name;
 	}
 	
 	public SucursalBean(SucursalBean sucursal) {
@@ -63,6 +66,7 @@ public class SucursalBean implements Serializable {
 		this.lat = sucursal.lat;
 		this.lon = sucursal.lon;
 		this.tracks = sucursal.tracks;
+		this.name = sucursal.name;
 	}
 
 	public Integer getIdSucursal() {
@@ -103,6 +107,14 @@ public class SucursalBean implements Serializable {
 
 	public void setTracks(List<TrackBean> tracks) {
 		this.tracks = tracks;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

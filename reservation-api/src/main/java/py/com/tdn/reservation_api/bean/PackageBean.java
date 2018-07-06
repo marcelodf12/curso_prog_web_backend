@@ -3,6 +3,7 @@ package py.com.tdn.reservation_api.bean;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,6 +30,7 @@ public class PackageBean implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idPackage;
 	
+	@Column(unique=true)
 	private String trackCode;
 	
 	private String description;
@@ -41,6 +44,7 @@ public class PackageBean implements Serializable {
 	private Integer weight; //peso
 	
 	@OneToOne(mappedBy="pack", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private DeliveryBean delivery;
 
 	public PackageBean() {
@@ -115,6 +119,15 @@ public class PackageBean implements Serializable {
 		this.weight = weight;
 	}
 	
+	
+	public DeliveryBean getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(DeliveryBean delivery) {
+		this.delivery = delivery;
+	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();

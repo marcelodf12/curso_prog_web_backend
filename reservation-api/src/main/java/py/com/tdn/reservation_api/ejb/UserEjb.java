@@ -53,7 +53,8 @@ public class UserEjb {
 		if(user.getIdUser()==null && user.getSucursal()!=null){
 			try {
 				SucursalBean sucursal = sucursalDao.findById(SucursalBean.class, user.getSucursal().getIdSucursal());
-				if(sucursal!=null){
+				log.debug(sucursal);
+				if(sucursal!=null && sucursal.getUser()==null){
 					user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
 					user.setSucursal(sucursal);
 					return userDao.create(user);
@@ -70,9 +71,15 @@ public class UserEjb {
 		if(user.getIdUser()!=null && user.getSucursal()!=null){
 			try {
 				SucursalBean sucursal = sucursalDao.findById(SucursalBean.class, user.getSucursal().getIdSucursal());
-				if(sucursal!=null){
-					user.setSucursal(sucursal);
-					return userDao.update(user);
+				UserBean userDB =  userDao.findById(UserBean.class, user.getIdUser());
+				if(userDB!=null && sucursal!=null && sucursal.getUser()==null){
+					if(user.getName()!=null)
+						userDB.setName(user.getName());
+					if(user.getEmail()!=null)
+						userDB.setEmail(user.getEmail());
+					if(user.getSucursal()!=null && user.getSucursal().getIdSucursal()!=null)
+						userDB.setSucursal(sucursal);
+					return userDao.update(userDB);
 				}
 			} catch (Exception e) {
 				log.error("Failed!", e);

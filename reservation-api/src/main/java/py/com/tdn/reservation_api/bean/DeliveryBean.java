@@ -136,7 +136,15 @@ public class DeliveryBean implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+	public List<TrackBean> getTracks() {
+		return tracks;
+	}
+
+	public void setTracks(List<TrackBean> tracks) {
+		this.tracks = tracks;
+	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();

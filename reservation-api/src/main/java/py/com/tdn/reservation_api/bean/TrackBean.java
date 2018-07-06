@@ -110,14 +110,14 @@ public class TrackBean implements Serializable{
 		this.inputDate = inputDate;
 	}
 
-	public DeliveryBean getOrder() {
+	public DeliveryBean getDelivery() {
 		return delivery;
 	}
 
-	public void setOrder(DeliveryBean delivery) {
+	public void setDelivery(DeliveryBean delivery) {
 		this.delivery = delivery;
 	}
-	
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();

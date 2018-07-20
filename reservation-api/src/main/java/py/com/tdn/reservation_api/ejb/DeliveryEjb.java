@@ -3,8 +3,11 @@ package py.com.tdn.reservation_api.ejb;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.transaction.UserTransaction;
 
 import org.apache.log4j.Logger;
 
@@ -17,6 +20,7 @@ import py.com.tdn.reservation_api.dao.ClientDao;
 import py.com.tdn.reservation_api.dao.DeliveryDao;
 import py.com.tdn.reservation_api.dao.PackageDao;
 import py.com.tdn.reservation_api.dao.SucursalDao;
+import py.com.tdn.reservation_api.dao.TrackDao;
 
 @Stateless
 public class DeliveryEjb {
@@ -33,19 +37,29 @@ public class DeliveryEjb {
 	@EJB
 	SucursalDao sucursalDao;
 	
+	@EJB
+	TrackDao trackDao;
+	
+	@Resource
+	private SessionContext sessionContext;
+	
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	public DeliveryBean createDelivery(DeliveryBean d){
+		UserTransaction tx = null;
 		d.setStatus("PREPARADO");
 		d.setTracks(new ArrayList<TrackBean>());
 		d.setInputDate(new Date());
 		try {
+			tx = sessionContext.getUserTransaction();
+			tx.begin();
 			ClientBean c = clientDao.findById(ClientBean.class, d.getClient().getIdClient());
 			PackageBean p = packageDao.findById(PackageBean.class, d.getPack().getIdPackage());
 			if(p.getDelivery()==null){
 				d.setClient(c);
 				d.setPack(p);
 				deliveryDao.create(d);
+				tx.commit();
 				return d;
 			}
 		} catch (Exception e) {
@@ -55,27 +69,12 @@ public class DeliveryEjb {
 	}
 	
 	public DeliveryBean addTrack(Integer idDelivery, TrackBean t){
-		try {
-			DeliveryBean d = deliveryDao.findById(DeliveryBean.class, idDelivery);
-			SucursalBean s = sucursalDao.findById(SucursalBean.class, t.getSucursal().getIdSucursal());
-			if(d!=null && t!=null && s!=null){
-				t.setInputDate(new Date());
-				t.setSucursal(s);
-				t.setDelivery(d);
-				if(d.getTracks()==null || d.getTracks().isEmpty()){
-					d.setTracks(new ArrayList<TrackBean>());
-					d.setStatus("EN CAMINO");
-				}
-				d.getTracks().add(t);
-				deliveryDao.create(d);
-				log.info(d);
-				return d;
-			}
-		} catch (Exception e) {
-			log.error("Failed!", e);
-		}
-		return null;
+		return deliveryDao.addTrack(idDelivery, t);
+	}
+	
+	public DeliveryBean finalizar(Integer idDelivery){
 		
+		return deliveryDao.finalizar(idDelivery);
 	}
 
 

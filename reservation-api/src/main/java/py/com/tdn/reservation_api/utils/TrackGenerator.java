@@ -2,12 +2,28 @@ package py.com.tdn.reservation_api.utils;
 
 import java.security.SecureRandom;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+
+import org.apache.log4j.Logger;
+
+@Singleton
 public class TrackGenerator {
 	
-	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	private static final SecureRandom rnd = new SecureRandom();
+	private String CHARACTERS;
+	private SecureRandom rnd;
 	
-	public static String newTrack(){
+	private Logger log = Logger.getLogger(TrackGenerator.class);
+	
+	@PostConstruct
+	public void init(){
+		log.debug("Inicializando el Singleton TrackGenerator");
+		CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		rnd = new SecureRandom();
+	}
+	
+	
+	public String newTrack(){
 		int len = 32;
 		StringBuilder sb = new StringBuilder( len );
 		   for( int i = 0; i < len; i++ ) 
@@ -15,8 +31,4 @@ public class TrackGenerator {
 		   return sb.toString();		
 	}
 	
-	private TrackGenerator(){
-		super();
-	}
-
 }

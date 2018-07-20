@@ -17,12 +17,17 @@ public class PackageEjb {
 	@EJB
 	PackageDao packageDao;
 	
+	@EJB
+	TrackGenerator trackEjb;
+	
+	private int atributoPrivado = 0;
+	
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	public PackageBean createPackage(PackageBean p){
 		if(p.getIdPackage()==null){
 			try {
-				p.setTrackCode(TrackGenerator.newTrack());
+				p.setTrackCode(trackEjb.newTrack());
 				return packageDao.create(p);
 			} catch (Exception e) {
 				log.error("Failed!", e);
@@ -48,6 +53,9 @@ public class PackageEjb {
 		try {
 			String column = "description";
 			String filter = "";
+			
+			atributoPrivado++;
+			log.debug("+++++++++++++++++++++++++" + atributoPrivado + "+++++++++++++++++++++++++++++++++++");
 			
 			if(description!=null) 		{ column ="description"; 	filter = description; }
 			else if(trackCode!=null){ column ="trackCode"; 	filter = trackCode; }

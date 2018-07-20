@@ -117,5 +117,20 @@ public class ClientRest {
 		r.setType(Messages.ERROR);
 		return Response.status(400).entity(r).build();	
     }
+	
+	
+	
+	
+	@GET
+	@Path("/test")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response test() { 
+		ClientBean c = clientEjb.test();
+		return Response.status(200).entity(c).build();	
+		
+	}
+	
+	
+	
 
 }

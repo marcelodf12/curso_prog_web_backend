@@ -2,6 +2,7 @@ package py.com.tdn.reservation_api.rest;
 
 import javax.ejb.EJB;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -84,5 +85,39 @@ public class DeliveryRest {
 		r.setType(Messages.ERROR);
 		return Response.status(400).entity(r).build();	
     }
+	
+	@PUT
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response finalizar(@PathParam("id") Integer idDelivery) { 
+		Respuesta<DeliveryBean> r = new Respuesta<>();
+		if(idDelivery!=null){
+			try {
+				DeliveryBean d = deliverEjb.finalizar(idDelivery);
+				if(d!=null){
+					r.setTittle(Messages.PERSONA_ACTUALIZADA_TITTLE);
+        			r.setMessage(Messages.PERSONA_ACTUALIZADA_MESSAGE.replace("{id}", d.getIdDelivery().toString()));
+        			r.setVisible(true);
+        			r.setType(Messages.SUCCESS);
+        			r.setData(d);
+        			return Response.status(200).entity(r).build();
+				}
+			} catch (Exception e) {
+				log.error("Failed!", e);
+			}
+    		r.setTittle(Messages.TITTLE_ERROR_GENERAL);
+    		r.setMessage(Messages.ERROR_GENERAL);
+    		r.setVisible(true);
+    		r.setType(Messages.ERROR);
+			return Response.status(500).entity(r).build();
+			
+		}
+			r.setTittle(Messages.PERSONA_NULL);
+			r.setVisible(true);
+			r.setType(Messages.ERROR);
+			return Response.status(400).entity(r).build();	
+		
+		
+	}
 
 }

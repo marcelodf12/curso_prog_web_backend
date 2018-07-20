@@ -69,5 +69,10 @@ public class ClientEjb {
 		}
 		
 	}
+	
+	public ClientBean test(){
+		ClientBean c = clientDao.test();
+		return c;
+	}
 
 }

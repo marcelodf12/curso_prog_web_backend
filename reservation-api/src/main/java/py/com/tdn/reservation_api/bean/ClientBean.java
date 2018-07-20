@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +17,13 @@ import javax.persistence.Table;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name="DELIVERY_TDN_CLIENT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ClientBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -31,6 +34,7 @@ public class ClientBean implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idClient;
 	
+	@Basic(fetch=FetchType.LAZY)
 	private String firtName;
 	
 	private String lastName;

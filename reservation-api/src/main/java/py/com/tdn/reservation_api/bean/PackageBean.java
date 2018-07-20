@@ -15,11 +15,13 @@ import javax.persistence.Table;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name="DELIVERY_TDN_PACKAGE")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PackageBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

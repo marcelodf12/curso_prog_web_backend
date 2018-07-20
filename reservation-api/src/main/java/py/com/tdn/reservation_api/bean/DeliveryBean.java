@@ -18,11 +18,14 @@ import javax.persistence.Table;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name="DELIVERY_TDN_DELIVERY")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DeliveryBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,6 +42,7 @@ public class DeliveryBean implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="idClient")
+	@JsonIgnore
 	private ClientBean client;
 	
 	private Date inputDate;

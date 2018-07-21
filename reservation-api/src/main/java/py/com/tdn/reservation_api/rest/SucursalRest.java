@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import py.com.tdn.reservation_api.bean.SucursalBean;
 import py.com.tdn.reservation_api.ejb.SucursalEjb;
+import py.com.tdn.reservation_api.secured.Secured;
 import py.com.tdn.reservation_api.utils.Messages;
 import py.com.tdn.reservation_api.utils.Respuesta;
 
@@ -48,6 +49,7 @@ public class SucursalRest {
 	
 	@POST
     @Produces(MediaType.APPLICATION_JSON)
+	@Secured
     public Response newSucursal(SucursalBean sucursal) { 
     	Respuesta<SucursalBean> r = new Respuesta<>();
     	if(sucursal!=null){

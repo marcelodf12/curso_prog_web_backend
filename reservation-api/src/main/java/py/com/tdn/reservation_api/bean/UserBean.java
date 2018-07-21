@@ -1,6 +1,7 @@
 package py.com.tdn.reservation_api.bean;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.log4j.Logger;
 
@@ -36,6 +39,13 @@ public class UserBean implements Serializable{
 	private String email;
 	
 	private String password;
+	
+	private String token;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar expirationToken;
+	
+	private String salt;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idSucursal")
@@ -94,6 +104,30 @@ public class UserBean implements Serializable{
 
 	public void setSucursal(SucursalBean sucursal) {
 		this.sucursal = sucursal;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Calendar getExpirationToken() {
+		return expirationToken;
+	}
+
+	public void setExpirationToken(Calendar expirationToken) {
+		this.expirationToken = expirationToken;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -42,7 +43,6 @@ public class DeliveryBean implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="idClient")
-	@JsonIgnore
 	private ClientBean client;
 	
 	private Date inputDate;
@@ -93,18 +93,22 @@ public class DeliveryBean implements Serializable {
 		this.idDelivery = idDelivery;
 	}
 
+	@JsonProperty
 	public PackageBean getPack() {
 		return pack;
 	}
 
+	@JsonIgnore
 	public void setPack(PackageBean pack) {
 		this.pack = pack;
 	}
 
+	@JsonProperty
 	public ClientBean getClient() {
 		return client;
 	}
 
+	@JsonIgnore
 	public void setClient(ClientBean client) {
 		this.client = client;
 	}

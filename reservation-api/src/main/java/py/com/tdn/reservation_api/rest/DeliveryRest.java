@@ -47,12 +47,12 @@ public class DeliveryRest {
     		r.setMessage(Messages.ERROR_GENERAL);
     		r.setVisible(true);
     		r.setType(Messages.ERROR);
-			return Response.status(500).entity(r).build();	
+			return Response.status(500).build();	
     	}
 		r.setTittle(Messages.PERSONA_NULL);
 		r.setVisible(true);
 		r.setType(Messages.ERROR);
-		return Response.status(400).entity(r).build();	
+		return Response.status(400).build();	
     }
 	
 	@POST

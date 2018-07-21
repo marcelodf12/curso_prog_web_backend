@@ -7,6 +7,10 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.transaction.UserTransaction;
 
 import org.apache.log4j.Logger;
@@ -23,6 +27,8 @@ import py.com.tdn.reservation_api.dao.SucursalDao;
 import py.com.tdn.reservation_api.dao.TrackDao;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class DeliveryEjb {
 	
 	@EJB
@@ -46,20 +52,20 @@ public class DeliveryEjb {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	public DeliveryBean createDelivery(DeliveryBean d){
-		UserTransaction tx = null;
+		//UserTransaction tx = null;
 		d.setStatus("PREPARADO");
 		d.setTracks(new ArrayList<TrackBean>());
 		d.setInputDate(new Date());
 		try {
-			tx = sessionContext.getUserTransaction();
-			tx.begin();
+			//tx = sessionContext.getUserTransaction();
+			//tx.begin();
 			ClientBean c = clientDao.findById(ClientBean.class, d.getClient().getIdClient());
 			PackageBean p = packageDao.findById(PackageBean.class, d.getPack().getIdPackage());
 			if(p.getDelivery()==null){
 				d.setClient(c);
 				d.setPack(p);
 				deliveryDao.create(d);
-				tx.commit();
+				//tx.commit();
 				return d;
 			}
 		} catch (Exception e) {

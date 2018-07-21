@@ -178,6 +178,60 @@ public class UsuarioRest {
 		
 		
 	}
+	
+	@POST
+	@Path("/{id}/login")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response loginUser(@PathParam("id") Integer id, UserBean user){
+    	Respuesta<String> r = new Respuesta<>();
+    	if(id!=null){
+    		try {
+    			String token = userEjb.login(id,user);
+    			if(token.compareTo("")!=0){
+        			r.setTittle(Messages.SUCCESS);
+        			r.setMessage("");
+        			r.setVisible(true);
+        			r.setType(Messages.SUCCESS);
+        			r.setData(token);
+        			return Response.status(200).entity(r).build();
+    			}
+			} catch (Exception e) {
+				log.error(e);
+			}
+    	}
+		r.setTittle(Messages.ERROR);
+		r.setMessage("");
+		r.setVisible(true);
+		r.setType(Messages.ERROR);
+		return Response.status(400).entity(r).build();	
+	}
+	
+	@POST
+	@Path("/{id}/logout")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response logoutUser(@PathParam("id") Integer id){
+    	Respuesta<Boolean> r = new Respuesta<>();
+    	if(id!=null){
+    		try {
+    			Boolean logout = userEjb.logout(id);
+    			if(logout){
+        			r.setTittle(Messages.SUCCESS);
+        			r.setMessage("");
+        			r.setVisible(true);
+        			r.setType(Messages.SUCCESS);
+        			r.setData(logout);
+        			return Response.status(200).entity(r).build();
+    			}
+			} catch (Exception e) {
+				log.error(e);
+			}
+    	}
+		r.setTittle(Messages.ERROR);
+		r.setMessage("");
+		r.setVisible(true);
+		r.setType(Messages.ERROR);
+		return Response.status(400).entity(r).build();	
+	}
 
 
 }

@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 
 import org.apache.log4j.Logger;
 
@@ -11,6 +15,8 @@ import py.com.tdn.reservation_api.bean.SucursalBean;
 import py.com.tdn.reservation_api.dao.SucursalDao;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SucursalEjb {
 
 

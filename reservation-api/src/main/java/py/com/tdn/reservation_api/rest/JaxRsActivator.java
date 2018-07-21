@@ -20,6 +20,7 @@ public class JaxRsActivator extends Application {
     	resources.add(PaqueteRest.class);
     	resources.add(SucursalRest.class);
     	resources.add(UsuarioRest.class);
+    	resources.add(CORSFilter.class);
     	
     	/* Para genera documentación */
         resources.add(ApiListingResource.class);
